@@ -1,0 +1,1 @@
+/* full JS pasted from user */
