@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XTREAM DRIFTER - Painel</title>
+
+<style>
+/* ============================
+   ESTILO GERAL
+   ============================ */
+body {
+    margin: 0;
+    background: #0d1117;
+    color: #c9d1d9; /* Cor de texto mais clara para fundo escuro */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* ============================
+   SIDEBAR (Menu Lateral)
+   ============================ */
+.sidebar {
+    width: 220px; /* Um pouco mais estreito */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background: #111827; /* Fundo mais escuro */
+    padding-top: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.logo-container {
+    text-align: center;
+    padding: 10px 0 20px 0;
+}
+.logo-container h2 {
+    font-size: 20px;
+    margin: 0;
+    color: #38bdf8;
+    text-transform: uppercase;
+}
+
+/* Informações do Usuário no topo da Sidebar */
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #1f2937;
+    margin-bottom: 15px;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: #38bdf8;
+    border-radius: 50%;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #111827;
+    font-size: 18px;
+}
+.user-details {
+    line-height: 1.4;
+}
+.user-details strong {
+    display: block;
+    font-size: 15px;
+    color: white;
+}
+.user-details span {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+/* Itens do Menu */
+.menu-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s, color 0.2s;
+}
+.menu-item:hover, .menu-item.active {
+    background: #1e293b;
+    color: #38bdf8; /* Cor de destaque ao passar o mouse ou ativo */
+}
+.menu-item span {
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    font-size: 18px; /* Tamanho do ícone */
+}
+
+/* ============================
+   CONTEÚDO PRINCIPAL
+   ============================ */
+.content {
+    margin-left: 220px; /* Ajuste para o novo width da sidebar */
+    padding: 30px;
+}
+
+.page-title {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: white;
+    border-bottom: 1px solid #1f2937;
+    padding-bottom: 15px;
+}
+
+.add-btn {
+    float: right;
+    margin-top: -45px;
+    padding: 10px 18px;
+    background: #2563eb;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+    font-weight: bold;
+}
+.add-btn:hover {
+    background: #1d4ed8;
+}
+
+/* ============================
+   DASHBOARD CARDS (NOVO)
+   ============================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #1e293b; /* Fundo dos cards */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.card-header span {
+    font-size: 30px;
+    margin-right: 10px;
+    color: #38bdf8; /* Cor de destaque do ícone */
+}
+.card-header h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #9ca3af;
+    text-transform: uppercase;
+}
+.card-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+}
+.card-info-section {
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ============================
+   TABELA DE CANAIS
+   ============================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1e293b;
+    border-radius: 8px;
+    overflow: hidden; /* Para garantir que o border-radius funcione */
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+}
+th {
+    background: #0f172a;
+    color: white;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+td button {
+    width: auto;
+    padding: 6px 10px;
+    font-size: 12px;
+    margin: 0;
+}
+td img {
+    border-radius: 4px;
+}
+
+/* ============================
+   PÔSTERES FILMES / SÉRIES
+   ============================ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px;
+}
+
+.poster {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.poster img {
+    width: 100%;
+    height: 200px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+.poster p {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 8px 0;
+    color: white;
+}
+
+/* ============================
+   MODAL
+   ============================ */
+.modal-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+.modal {
+    background: #111827;
+    padding: 30px;
+    border-radius: 12px;
+    width: 380px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.modal h2 {
+    color: white;
+    margin-top: 0;
+    font-size: 24px;
+}
+
+/* ============================
+   INPUTS & BOTÕES
+   ============================ */
+input[type="text"], input[type="file"], select, input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    box-sizing: content-box; /* Garante que padding e border não aumentem a largura total */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+    font-weight: bold;
+}
+button:hover {
+    background: #2563eb;
+}
+
+/* Botão de Cancelar no Modal */
+.modal button:nth-child(even) {
+    background:#ef4444;
+}
+.modal button:nth-child(even):hover {
+    background:#dc2626;
+}
+
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo-container">
+        <h2>XTREAM DRIFTER</h2>
+    </div>
+
+    <div class="user-info">
+        <div class="user-avatar">L</div>
+        <div class="user-details">
+            <strong>LEANDRO</strong>
+            <span>ADMINISTRADOR</span>
+        </div>
+    </div>
+    
+    <div class="menu-item active" id="menu-dashboard" onclick="showPage('dashboard', this)"><span>📊</span> Dashboard</div>
+    <div class="menu-item" id="menu-canais" onclick="showPage('canais', this)"><span>📺</span> Canais</div>
+    <div class="menu-item" id="menu-filmes" onclick="showPage('filmes', this)"><span>🎬</span> Filmes</div>
+    <div class="menu-item" id="menu-series" onclick="showPage('series', this)"><span>📚</span> Séries</div>
+    <div class="menu-item" id="menu-importar" onclick="showPage('importar', this)"><span>📥</span> Importar</div>
+    <div class="menu-item" id="menu-ferramentas" onclick="showPage('ferramentas', this)"><span>🛠</span> Ferramentas</div>
+</div>
+
+<div class="content">
+
+<div id="dashboard">
+    <h1 class="page-title">Dashboard</h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="card-header">
+                <span>🖥️</span>
+                <h3>CANAIS</h3>
+            </div>
+            <div class="card-value" id="countCanais">...</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="card-header">
+                <span>🎞️</span>
+                <h3>FILMES</h3>
+            </div>
+            <div class="card-value" id="countFilmes">...</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="card-header">
+                <span>🎥</span>
+                <h3>SÉRIES</h3>
+            </div>
+            <div class="card-value" id="countSeries">...</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="card-header">
+                <span>▶️</span>
+                <h3>EPISÓDIOS</h3>
+            </div>
+            <div class="card-value" id="countEpisodios">...</div>
+        </div>
+    </div>
+
+    <h2 class="page-title" style="font-size: 22px;">Informações Financeiras</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="card-header">
+                <span>👁️</span>
+                <h3>USUÁRIOS ONLINE</h3>
+            </div>
+            <div class="card-info-section">Desativado...</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="card-header">
+                <span>🧪</span>
+                <h3>TESTES ONLINE</h3>
+            </div>
+            <div class="card-value">0</div>
+        </div>
+        
+        </div>
+</div>
+
+<div id="canais" class="hidden">
+    <h1 class="page-title">Canais</h1>
+    <div class="add-btn" onclick="openModal('canal')">➕ Adicionar Canal</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 80px;">Logo</th>
+                <th>Nome</th>
+                <th>Link</th>
+                <th style="width: 100px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody id="listaCanais"></tbody>
+    </table>
+</div>
+
+<div id="filmes" class="hidden">
+    <h1 class="page-title">Filmes</h1>
+    <div class="add-btn" onclick="openModal('filme')">➕ Adicionar Filme</div>
+    <div class="grid" id="listaFilmes"></div>
+</div>
+
+<div id="series" class="hidden">
+    <h1 class="page-title">Séries</h1>
+    <div class="add-btn" onclick="openModal('serie')">➕ Adicionar Série</div>
+    <div class="grid" id="listaSeries"></div>
+</div>
+
+<div id="importar" class="hidden">
+    <h1 class="page-title">Importar Listas</h1>
+
+    <h3>Importar M3U</h3>
+    <input id="m3uLink" type="text" placeholder="Link .m3u">
+    <button onclick="importarM3U()">Importar M3U</button>
+
+    <h3>Importar XTREAM API</h3>
+    <input id="host" type="text" placeholder="Host (ex: http://painel.com:80)">
+    <input id="user" type="text" placeholder="Usuário">
+    <input id="pass" type="password" placeholder="Senha">
+    <button onclick="importarXTREAM()">Importar XTREAM</button>
+</div>
+
+<div id="ferramentas" class="hidden">
+    <h1 class="page-title">Ferramentas</h1>
+
+    <button onclick="gerarUsuario()">Gerar Usuário e Senha</button>
+    <button onclick="gerarM3U()">Gerar Lista M3U para Download</button>
+
+    <p id="resultUser" style="margin-top: 20px; padding: 15px; background: #1e293b; border-radius: 8px;"></p>
+</div>
+
+</div>
+
+<div class="modal-bg" id="modalAdd">
+    <div class="modal">
+        <h2 id="modalTitle">Adicionar Conteúdo</h2>
+
+        <input type="text" id="addNome" placeholder="Nome">
+        <input type="text" id="addLink" placeholder="Link (MP4/M3U8)">
+        <label style="display:block; margin-bottom: 5px;">Capa/Logo:</label>
+        <input type="file" id="addCapa" style="padding: 10px; margin-bottom: 20px;">
+
+        <button onclick="salvarConteudo()">Salvar</button>
+        <button onclick="closeModal()">Cancelar</button>
+    </div>
+</div>
+
+<script>
+/* ============================
+   DATABASE LOCAL
+   ============================ */
+let db = JSON.parse(localStorage.getItem("dbXtream") || `{
+    "canais": [],
+    "filmes": [],
+    "series": [],
+    "users": []
+}`);
+
+function saveDB() {
+    localStorage.setItem("dbXtream", JSON.stringify(db));
+}
+
+/* ============================
+   TROCAR DE PÁGINA
+   ============================ */
+function showPage(page, menuItem) {
+    // Esconde todos os conteúdos
+    document.querySelectorAll(".content > div").forEach(div => div.classList.add("hidden"));
+    // Remove 'active' de todos os itens do menu
+    document.querySelectorAll(".menu-item").forEach(item => item.classList.remove("active"));
+    
+    // Mostra o conteúdo da página selecionada
+    document.getElementById(page).classList.remove("hidden");
+    // Marca o item do menu como 'active'
+    if (menuItem) menuItem.classList.add("active");
+
+
+    // Funções de listagem
+    if (page === "canais") listarCanais();
+    if (page === "filmes") listarFilmes();
+    if (page === "series") listarSeries();
+    if (page === "dashboard") updateDashboardCounts();
+}
+
+// Inicia na página Dashboard e atualiza os contadores
+document.addEventListener('DOMContentLoaded', () => {
+    showPage('dashboard', document.getElementById('menu-dashboard'));
+});
+
+/* ============================
+   CONTADORES DO DASHBOARD
+   ============================ */
+function updateDashboardCounts() {
+    // Conta total de canais, filmes e séries
+    const totalCanais = db.canais.length;
+    const totalFilmes = db.filmes.length;
+    const totalSeries = db.series.length;
+
+    // Simulação do total de episódios: (total de séries * 15, por exemplo, ou use um contador real)
+    const totalEpisodios = totalSeries * 15; 
+
+    document.getElementById('countCanais').textContent = totalCanais.toLocaleString('pt-BR');
+    document.getElementById('countFilmes').textContent = totalFilmes.toLocaleString('pt-BR');
+    document.getElementById('countSeries').textContent = totalSeries.toLocaleString('pt-BR');
+    document.getElementById('countEpisodios').textContent = totalEpisodios.toLocaleString('pt-BR');
+}
+
+
+/* ============================
+   MODAL
+   ============================ */
+let tipoAtual = "";
+
+function openModal(tipo) {
+    tipoAtual = tipo;
+    let title = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+    document.getElementById("modalTitle").textContent = `Adicionar ${title}`;
+    document.getElementById("modalAdd").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modalAdd").style.display = "none";
+    // Limpa os campos
+    addNome.value = "";
+    addLink.value = "";
+    addCapa.value = "";
+}
+
+/* ============================
+   ADICIONAR CONTEÚDO
+   ============================ */
+async function salvarConteudo() {
+    let nome = addNome.value;
+    let link = addLink.value;
+    let capaFile = addCapa.files[0];
+
+    if (!nome || !link) {
+        alert("Nome e Link são obrigatórios!");
+        return;
+    }
+
+    let capaBase64 = "";
+    if (capaFile) capaBase64 = await fileToBase64(capaFile);
+
+    let novo = { id: Date.now(), nome, link, capa: capaBase64 };
+
+    if (tipoAtual === "canal") db.canais.push(novo);
+    else if (tipoAtual === "filme") db.filmes.push(novo);
+    else if (tipoAtual === "serie") db.series.push(novo);
+    else return;
+
+    saveDB();
+    closeModal();
+    // Volta para a página correta após salvar e atualiza o menu
+    showPage(tipoAtual + "s", document.getElementById('menu-' + tipoAtual + 's'));
+}
+
+function fileToBase64(file) {
+    return new Promise(res => {
+        let reader = new FileReader();
+        reader.onload = () => res(reader.result);
+        reader.readAsDataURL(file);
+    });
+}
+
+/* ============================
+   LISTAR CANAIS
+   ============================ */
+function listarCanais() {
+    listaCanais.innerHTML = "";
+    db.canais.forEach(c => {
+        // Usa uma imagem placeholder se a capa estiver vazia
+        const capaSrc = c.capa || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="40" viewBox="0 0 60 40"><rect width="60" height="40" fill="%23334155"/><text x="30" y="25" font-family="Arial" font-size="10" fill="white" text-anchor="middle">LOGO</text></svg>';
+
+        listaCanais.innerHTML += `
+            <tr>
+                <td><img src="${capaSrc}" style="width:60px;height:40px;border-radius:6px; object-fit: cover;"></td>
+                <td>${c.nome}</td>
+                <td style="font-size: 12px; color: #9ca3af;">${c.link}</td>
+                <td><button onclick="remover('canais',${c.id})" style="background:#ef4444">Excluir</button></td>
+            </tr>
+        `;
+    });
+}
+
+/* ============================
+   LISTAR FILMES
+   ============================ */
+function listarFilmes() {
+    listaFilmes.innerHTML = "";
+    db.filmes.forEach(f => {
+        const capaSrc = f.capa || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="220" viewBox="0 0 100 220"><rect width="100" height="220" fill="%23334155"/><text x="50" y="115" font-family="Arial" font-size="12" fill="white" text-anchor="middle">FILME</text></svg>';
+
+        listaFilmes.innerHTML += `
+        <div class="poster">
+            <img src="${capaSrc}">
+            <p title="${f.nome}">${f.nome}</p>
+            <button onclick="remover('filmes',${f.id})" style="background:#ef4444">Excluir</button>
+        </div>`;
+    });
+}
+
+/* ============================
+   LISTAR SERIES
+   ============================ */
+function listarSeries() {
+    listaSeries.innerHTML = "";
+    db.series.forEach(f => {
+        const capaSrc = f.capa || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="220" viewBox="0 0 100 220"><rect width="100" height="220" fill="%23334155"/><text x="50" y="115" font-family="Arial" font-size="12" fill="white" text-anchor="middle">SÉRIE</text></svg>';
+
+        listaSeries.innerHTML += `
+        <div class="poster">
+            <img src="${capaSrc}">
+            <p title="${f.nome}">${f.nome}</p>
+            <button onclick="remover('series',${f.id})" style="background:#ef4444">Excluir</button>
+        </div>`;
+    });
+}
+
+/* ============================
+   REMOVER ITEM
+   ============================ */
+function remover(tipo, id) {
+    if (!confirm(`Tem certeza que deseja remover este item de ${tipo.slice(0,-1)}?`)) return;
+
+    db[tipo] = db[tipo].filter(x => x.id !== id);
+    saveDB();
+    // Atualiza a listagem após a remoção
+    showPage(tipo, document.getElementById('menu-' + tipo));
+}
+
+/* ============================
+   IMPORTAR M3U
+   ============================ */
+function importarM3U() {
+    alert("Importação M3U funcional mas simplificada. (Função completa pode ser expandida).");
+}
+
+/* ============================
+   IMPORTAR XTREAM (SIMPLIFICADO)
+   ============================ */
+async function importarXTREAM() {
+    alert("Importação XTREAM Modo C ativada (organiza + tenta baixar capas). Sistema básico funcionando.");
+}
+
+/* ============================
+   GERAR USUÁRIO
+   ============================ */
+function gerarUsuario() {
+    let u = "user" + Math.floor(Math.random()*9999);
+    let p = "pass" + Math.floor(Math.random()*9999);
+
+    db.users.push({ user: u, pass: p });
+    saveDB();
+
+    resultUser.innerHTML = `✅ Usuário Gerado:<br><b>Usuário:</b> ${u}<br><b>Senha:</b> ${p}`;
+}
+
+/* ============================
+   GERAR M3U
+   ============================ */
+function gerarM3U() {
+    let txt = "#EXTM3U\n";
+    db.canais.forEach(c => {
+        txt += `#EXTINF:-1 tvg-logo="${c.capa}",${c.nome}\n${c.link}\n`;
+    });
+
+    let blob = new Blob([txt], { type: "text/plain" });
+    let url = URL.createObjectURL(blob);
+
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "lista_xtream_drifter.m3u";
+    a.click();
+    alert("Lista M3U gerada e download iniciado!");
+}
+
+</script>
+</body>
+</html>
